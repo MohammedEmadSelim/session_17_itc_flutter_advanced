@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? sharedPref;
@@ -8,6 +10,19 @@ SharedPreferences? sharedPref;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPref = await SharedPreferences.getInstance();
+
+
+  final Directory directory = await getApplicationDocumentsDirectory();
+  print(directory.path);
+
+  File file = File('${directory.path}/test.json');
+  var json1 = {"title": "pepsi", "price": 20};
+
+  await file.writeAsString(json.encode(json1));
+
+  var data = await file.readAsString();
+  var jsonEndoded  =  json.decode(data);
+  print(jsonEndoded['title']);
 
   runApp(const MyApp());
 
