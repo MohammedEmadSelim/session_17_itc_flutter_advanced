@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${sharedPref!.getString("product")! as Map}",
+                      "${sharedPref!.getString("product")!}",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
