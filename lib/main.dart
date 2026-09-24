@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,18 +12,28 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPref = await SharedPreferences.getInstance();
 
+  //
+  // print(DateTime.now());
+  // print(DateFormat.yMMMMd().format(DateTime.now()));
+  // print(DateFormat.E().format(DateTime.now()));
+  // print(DateFormat.yMMMEd().format(DateTime.now()));
+  print(DateFormat('dd/MM/yyyy').format(DateTime.now()));
+  print(DateFormat('dd-MM-yyyy').format(DateTime.now()));
+  print(DateFormat('d MMMM yyyy').format(DateTime.parse("1999-10-05")));
 
-  final Directory directory = await getApplicationDocumentsDirectory();
-  print(directory.path);
 
-  File file = File('${directory.path}/test.json');
-  var json1 = {"title": "pepsi", "price": 20};
-
-  await file.writeAsString(json.encode(json1));
-
-  var data = await file.readAsString();
-  var jsonEndoded  =  json.decode(data);
-  print(jsonEndoded['title']);
+  //
+  // final Directory directory = await getApplicationDocumentsDirectory();
+  // print(directory.path);
+  //
+  // File file = File('${directory.path}/test.json');
+  // var json1 = {"title": "pepsi", "price": 20};
+  //
+  // await file.writeAsString(json.encode(json1));
+  //
+  // var data = await file.readAsString();
+  // var jsonEndoded  =  json.decode(data);
+  // print(jsonEndoded['title']);
 
   runApp(const MyApp());
 
@@ -125,40 +136,43 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              height: 270,
-              width: 370,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 8,
-                    spreadRadius: 2,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "${sharedPref!.getString("product")!}",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      "data",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+            TextButton(
+              onPressed: (){},
+              child: Container(
+                height: 270,
+                width: 370,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      spreadRadius: 2,
+                      offset: Offset(0, 4),
                     ),
                   ],
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${sharedPref!.getString("product")!}",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        "${DateFormat('d MMMM yyyy').format(DateTime.parse("1999-10-05"))}",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
